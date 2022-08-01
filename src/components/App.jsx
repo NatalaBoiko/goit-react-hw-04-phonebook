@@ -7,8 +7,6 @@ import { nanoid } from 'nanoid';
 import './App.module.css';
 
 export const App = () => {
-  console.log('e');
-
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
@@ -67,13 +65,7 @@ export const App = () => {
       <ContactForm onSubmit={formSubmit} />
       <h2>Contacts</h2>
       <Filter filter={filter} changeFilterInput={changeFilterInput} />
-      <ContactList
-        findContacts={findContacts()}
-        deleteContact={deleteContact}
-      />
+      <ContactList contacts={findContacts()} deleteContact={deleteContact} />
     </section>
   );
 };
-
-// contacts={this.findContacts()}
-// deleteContact={deleteContact}
