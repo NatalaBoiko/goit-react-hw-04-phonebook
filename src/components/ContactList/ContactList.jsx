@@ -1,7 +1,7 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './ContactList.module.css';
 
-export const ContactList = ({ contacts }) => {
+export const ContactList = ({ contacts, deleteContact }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => {
@@ -10,7 +10,9 @@ export const ContactList = ({ contacts }) => {
             <p>
               {name}: {number}
             </p>
-            <button type="button">Delete</button>
+            <button type="button" onClick={() => deleteContact(id)}>
+              Delete
+            </button>
           </li>
         );
       })}
@@ -18,9 +20,10 @@ export const ContactList = ({ contacts }) => {
   );
 };
 
-// ContactList.propTypes = {
-//   name: PropTypes.string,
-//   number: PropTypes.string,
-//   id: PropTypes.string,
-//   deleteContact: PropTypes.func,
-// };
+ContactList.propTypes = {
+  contacts: PropTypes.array,
+  name: PropTypes.string,
+  number: PropTypes.string,
+  id: PropTypes.string,
+  deleteContact: PropTypes.func,
+};

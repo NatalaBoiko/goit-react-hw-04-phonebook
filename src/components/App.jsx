@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
@@ -11,6 +11,8 @@ export const App = () => {
 
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
+
+  // useEffect()
 
   // componentDidMount() {
   //   const contacts = localStorage.getItem('contacts');
@@ -45,33 +47,30 @@ export const App = () => {
       : setContacts([contact, ...contacts]);
   };
 
-  // const changeFilterInput = e => {
-  //   this.setState({ filter: e.target.value });
-  // };
+  const changeFilterInput = e => {
+    setFilter(e.target.value);
+  };
 
-  // const findContacts = () => {
-  //   const { filter, contacts } = this.state;
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase())
-  //   );
-  // };
+  const findContacts = () => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
 
-  // const deleteContact = id => {
-  //   this.setState(prevState => ({
-  //     contacts: prevState.contacts.filter(contact => contact.id !== id),
-  //   }));
-  // };
+  const deleteContact = id => {
+    setContacts(contacts.filter(contact => contact.id !== id));
+  };
 
   return (
     <section>
       <h1>Phonebook</h1>
       <ContactForm onSubmit={formSubmit} />
       <h2>Contacts</h2>
-      {/* <Filter
-      filter={filter}
-      changeFilterInput={this.changeFilterInput}
-      /> */}
-      <ContactList contacts={contacts} />
+      <Filter filter={filter} changeFilterInput={changeFilterInput} />
+      <ContactList
+        findContacts={findContacts()}
+        deleteContact={deleteContact}
+      />
     </section>
   );
 };
